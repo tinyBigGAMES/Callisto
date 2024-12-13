@@ -127,15 +127,21 @@ The Callisto API has been designed to be both powerful and easy to use. Below is
 - **ClearStack/PopStack** 🗑️: Manage stack states effectively.
 - **SetTableFieldValue/GetTableFieldValue** 🧩: Access and manipulate Lua tables.
 
-### Contributing
+## Media
+
+### Podcast Deep Dive
+Explore the in-depth discussion about Callisto, its features, and its use cases.
+
+
+## Contributing
 
 Contributions to **Callisto** are highly encouraged. Please feel free to submit issues, suggest new features, or create pull requests to expand the capabilities and robustness of the scripting engine.
 
-### License
+## License
 
 **Callisto** is distributed under the 🆓 **BSD-3-Clause License**, allowing for redistribution and use in both source and binary forms, with or without modification, under specific conditions. See the [LICENSE](https://github.com/tinyBigGAMES/Callisto?tab=BSD-3-Clause-1-ov-file#BSD-3-Clause-1-ov-file) file for more details.
 
-### Support
+## Support
 
 - <a href="https://github.com/tinyBigGAMES/Callisto/issues" target="_blank">Issues</a>
 - <a href="https://github.com/tinyBigGAMES/Callisto/discussions" target="_blank">Discussions</a>
