@@ -75,7 +75,7 @@ end;
 
 ### Registering a Delphi Routine to be Used in Lua 🔗
 ```pascal
-class procedure TMyClass.DelphiRoutine(ALua: ICallistoContext);
+class procedure TMyClass.DelphiRoutine(const ALua: ICallistoContext);
 begin
   // Example routine that pushes a string result onto Lua stack
   ACallisto.PushValue('Hello from Delphi!');
