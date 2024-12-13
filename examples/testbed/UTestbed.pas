@@ -72,9 +72,10 @@ begin
   try
     LCallisto := TCallisto.Create(); // Create a new instance of TCallisto.
     try
-      // Register callbacks for the "before reset" and "after reset" events.
+      // Register callbacks for reset events.
       LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
       LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       // Add a search path where Lua scripts can be located.
       LCallisto.AddSearchPath('.\res\scripts');
       // Additional code for TCallisto functionality can be added here.
@@ -97,8 +98,10 @@ begin
   try
     LCallisto := TCallisto.Create(); // Create a new instance of TCallisto.
     try
-      // Register the callback for the "before reset" event.
+      // Register callbacks for reset events.
       LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       // Add a search path where Lua scripts can be located.
       LCallisto.AddSearchPath('.\res\scripts');
 
@@ -158,8 +161,9 @@ begin
   try
     LCallisto := TCallisto.Create(); // Create a new instance of TCallisto.
     try
-      // Register the callback for the "before reset" event.
+      // Register callbacks for reset events.
       LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
 
       // Add a search path where Lua scripts can be located.
       LCallisto.AddSearchPath('.\res\scripts');
@@ -211,8 +215,10 @@ begin
   try
     LCallisto := TCallisto.Create(); // Create a new instance of TCallisto.
     try
-      // Register the callback for the "before reset" event.
+      // Register callbacks for reset events.
       LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       // Add a search path where Lua scripts can be located.
       LCallisto.AddSearchPath('.\res\scripts');
       // Load and execute the Lua code as a string.
@@ -278,8 +284,10 @@ begin
   try
     LCallisto := TCallisto.Create();
     try
+      // Register callbacks for reset events.
       LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
-      LCallisto.SetBeforeResetCallback(OnAfterReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       LCallisto.AddSearchPath('.\res\scripts');
 
       // Step 1: Manually register a routine and call it directly from Lua
@@ -335,6 +343,10 @@ begin
   LCallisto := TCallisto.Create(); // Create the Lua wrapper instance
   try
     try
+      // Register callbacks for reset events.
+      LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       // Add a search path to locate Lua modules required by the script
       LCallisto.AddSearchPath('.\res\scripts');
 
@@ -363,49 +375,53 @@ const
   mm.add(50,50)                                  -- Call the 'add' function from the script
   ''';
 var
-  LLua: TCallisto; // Lua wrapper object
+  LCallisto: TCallisto; // Lua wrapper object
 begin
-  LLua := TCallisto.Create(); // Create the Lua wrapper instance
+  LCallisto := TCallisto.Create(); // Create the Lua wrapper instance
   try
     try
+      // Register callbacks for reset events.
+      LCallisto.SetBeforeResetCallback(OnBeforeReset, LCallisto);
+      LCallisto.SetAfterResetCallback(OnAfterReset, LCallisto);
+
       // Add a search path to locate Lua scripts used in the `import` command
-      LLua.AddSearchPath('.\res\scripts');
+      LCallisto.AddSearchPath('.\res\scripts');
 
       // Load the Lua code as a string and execute it
-      LLua.LoadString(LCode);
+      LCallisto.LoadString(LCode);
     except
       on E: Exception do
       begin
         // Handle and display any exceptions that occur during execution
-        LLua.PrintLn(E.Message, []);
+        LCallisto.PrintLn(E.Message, []);
       end;
     end;
   finally
     // Ensure that the Lua instance is properly freed, even if an exception occurs
-    LLua.Free();
+    LCallisto.Free();
   end;
 end;
 
 // Test procedure demonstrating compiling Lua to bytecode and executing it.
 procedure Test08();
 var
-  LLua: TCallisto;        // Local variable to hold the TCallisto instance.
+  LCallisto: TCallisto;        // Local variable to hold the TCallisto instance.
   LStream: TMemoryStream; // Memory stream for storing compiled Lua bytecode
 begin
-  LLua := TCallisto.Create(); // Create the Lua wrapper instance
+  LCallisto := TCallisto.Create(); // Create the Lua wrapper instance
   try
     try
       // Add a search path to locate Lua scripts
-      LLua.AddSearchPath('.\res\scripts');
+      LCallisto.AddSearchPath('.\res\scripts');
 
       // Create a memory stream to store the compiled bytecode
       LStream := TMemoryStream.Create();
       try
         // Compile the Lua script file into the memory stream
-        LLua.CompileToStream('.\res\scripts\Example03.lua', LStream, False);
+        LCallisto.CompileToStream('.\res\scripts\Example03.lua', LStream, False);
 
         // Load the compiled Lua bytecode from the memory stream
-        LLua.LoadBuffer(LStream.Memory, LStream.Size);
+        LCallisto.LoadBuffer(LStream.Memory, LStream.Size);
 
       finally
         // Free the memory stream after loading the bytecode
@@ -415,12 +431,12 @@ begin
       on E: Exception do
       begin
         // Handle and display any exceptions that occur during compilation or execution
-        LLua.PrintLn(E.Message, []);
+        LCallisto.PrintLn(E.Message, []);
       end;
     end;
   finally
     // Ensure that the Lua instance is properly freed, even if an exception occurs
-    LLua.Free();
+    LCallisto.Free();
   end;
 end;
 
@@ -445,7 +461,7 @@ begin
   end;
 
   // Set the test number to execute. Change this value to run different tests.
-  LNum := 05;
+  LNum := 01;
 
   // Use a case statement to execute the corresponding test procedure based on LNum.
   case LNum of
