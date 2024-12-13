@@ -54,6 +54,7 @@ type
   { misc }
   misc = class
     class procedure test1(const AContext: ICallistoContext);
+    class procedure test2(const AContext: ICallistoContext);
   end;
 
 implementation
@@ -144,5 +145,18 @@ begin
       AContext.Lua.PrintLn('(host) misc.test1', []);
     end;
 end;
+
+class procedure misc.test2(const AContext: ICallistoContext);
+var
+  s: string;
+begin
+  if AContext.ArgCount = 1 then
+  begin
+    s := AContext.GetValue(vtString, 1);
+    AContext.Lua.PrintLn('(host) misc.test2("%s")', [s]);
+  end;
+end;
+
+
 
 end.

@@ -283,7 +283,7 @@ begin
       LCallisto.AddSearchPath('.\res\scripts');
 
       // Step 1: Manually register a routine and call it directly from Lua
-      LCallisto.RegisterRoutine('misc.test1', misc, @misc.test1); // Register the 'test1' routine in the 'misc' namespace
+      LCallisto.RegisterRoutine('misc.test1', misc, @misc.test1); // Register the 'test1' routine in the 'misc' class
       LCallisto.Call('misc.test1', ['this works', 777]);          // Call the registered routine with parameters
 
       // Step 2: Automatically register all class routines as global Lua functions
@@ -303,6 +303,12 @@ begin
       LCallisto.RegisterRoutines('', LObj, 'myObj');             // Register the object instance as 'myObj' in Lua
       LCallisto.Call('myObj.test1', [2020]);                     // Call the 'test1' method on the 'myObj' instance
       LObj.Free();                                          // Free the object instance to release resources
+
+      // Step 5: Manually register a routine and call it directly from Lua
+      LCallisto.PrintLn('', []);
+      LCallisto.RegisterRoutine('misc.test2', misc.test2); // Register the 'test2' routine in the 'misc' class
+      LCallisto.Call('misc.test2', ['this is a string']);  // Call the registered routine with parameters
+
     finally
       LCallisto.Free();
     end;
@@ -439,7 +445,7 @@ begin
   end;
 
   // Set the test number to execute. Change this value to run different tests.
-  LNum := 01;
+  LNum := 05;
 
   // Use a case statement to execute the corresponding test procedure based on LNum.
   case LNum of

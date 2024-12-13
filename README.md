@@ -69,14 +69,13 @@ var
 begin
   LCallisto := TCallisto.Create();
   LCallisto.LoadString('print("Hello from Lua!")');
-  LCallisto.Run();  
   LCallisto.Free();
 end;
 ```
 
 ### Registering a Delphi Routine to be Used in Lua 🔗
 ```pascal
-procedure MyDelphiRoutine(ALua: ICallistoContext);
+class procedure TMyClass.DelphiRoutine(ALua: ICallistoContext);
 begin
   // Example routine that pushes a string result onto Lua stack
   ACallisto.PushValue('Hello from Delphi!');
@@ -86,10 +85,9 @@ var
   LCallisto: TCallisto;
 begin
   LCallisto := Callisto.Create();
-  LCallisto.RegisterRoutine('DelphiRoutine', MyDelphiRoutine);
+  LCallisto.RegisterRoutine('DelphiRoutine', TMyClass.MyDelphiRoutine);
   LCallisto.LoadString('DelphiRoutine()');
-  LCallisto.Run();
-  LCallisto.Free();
+    LCallisto.Free();
 end;
 ```
 

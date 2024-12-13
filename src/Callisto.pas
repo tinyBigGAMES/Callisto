@@ -662,7 +662,7 @@ type
   /// This type acts as a bridge between Delphi and Lua, allowing Delphi code to be executed within the Lua environment.
   /// </summary>
   /// <param name="ALua">The <see cref="ICallistoContext"/> providing access to the Lua environment and stack.</param>
-  TCallistoFunction = procedure(ALua: ICallistoContext) of object;
+  TCallistoFunction = procedure(const ALua: ICallistoContext) of object;
 
   /// <summary>
   /// The core interface for interacting with the Lua environment.
