@@ -29,14 +29,14 @@ type
   { TCCLI }
   TCCLI = class
   private
-    FLua: TCallisto;
+    FCallisto: TCallisto;
     procedure RunScript(const AFilename: string);
     procedure InitProject(const AProjectName: string);
     procedure BuildProject(const AProjectName: string);
     procedure ShowBanner;
     procedure ShowUsage(const ACommand: string = '');
   public
-    property Lua: TCallisto read FLua;
+    property Callisto: TCallisto read FCallisto;
     constructor Create(); virtual;
     destructor Destroy(); override;
     procedure Print(const AText: string; const AArgs: array of const);
@@ -58,7 +58,7 @@ begin
   LCli := TCCLI.Create;
   try
     // Try to run payload and exit
-    if LCli.Lua.RunPayload() then
+    if LCli.Callisto.RunPayload() then
       Exit;
 
     // Populate Args array with command-line arguments
@@ -114,23 +114,23 @@ end;
 constructor TCCLI.Create();
 begin
   inherited;
-  FLua := TCallisto.Create();
+  FCallisto := TCallisto.Create();
 end;
 
 destructor TCCLI.Destroy();
 begin
-  FLua.Free();
+  FCallisto.Free();
   inherited;
 end;
 
 procedure TCCLI.Print(const AText: string; const AArgs: array of const);
 begin
-  FLua.Print(AText, AArgs);
+  FCallisto.Print(AText, AArgs);
 end;
 
 procedure TCCLI.PrintLn(const AText: string; const AArgs: array of const);
 begin
-  FLua.PrintLn(AText, AArgs);
+  FCallisto.PrintLn(AText, AArgs);
 end;
 
 procedure TCCLI.Execute(const AArgs: TArray<string>);
@@ -244,7 +244,7 @@ var
   LFilename: string;
 begin
   try
-    FLua.Reset();
+    FCallisto.Reset();
 
     LFilename := Tpath.ChangeExtension(AFilename, 'lua');
 
@@ -255,8 +255,8 @@ begin
     end;
 
     PrintLn('Running script: "%s"', [LFilename]);
-    FLua.UpdateArgs(2); // skip 'ccli run' on the commandline
-    FLua.LoadFile(LFilename);
+    FCallisto.UpdateArgs(2); // skip 'ccli run' on the commandline
+    FCallisto.LoadFile(LFilename);
   except
     on E: Exception do
     begin
@@ -386,26 +386,26 @@ begin
       if TFile.Exists(LExeFilename) then
         begin
           // Attempt to store compiled Lua bytecode into the payload executable
-          if FLua.StorePayload(LSrcFilename, LExeFilename) then
+          if FCallisto.StorePayload(LSrcFilename, LExeFilename) then
             begin
               // Attempt to update payload EXE main icon
               PrintLn('Saved bytecode to "%s"', [LExeFilename]);
-              if FLua.UpdatePayloadIcon(LExeFilename, LIconFilename) then
-                FLua.PrintLn('Added icon "%s" to "%s..."', [LIconFilename, LExeFilename]);
+              if FCallisto.UpdatePayloadIcon(LExeFilename, LIconFilename) then
+                FCallisto.PrintLn('Added icon "%s" to "%s..."', [LIconFilename, LExeFilename]);
 
               // Attemp to update payload EXE version information
-              if FLua.UpdatePayloadVersionInfo(LExeFilename, LMajor, LMinor,
+              if FCallisto.UpdatePayloadVersionInfo(LExeFilename, LMajor, LMinor,
                 LPatch, LProductName, LDescription,
                 TPath.GetFileName(LExeFilename),
                 LCompanyName,
                 LCopyright) then
-                FLua.PrintLn('Added version info to "%s".', [LExeFilename]);
+                FCallisto.PrintLn('Added version info to "%s".', [LExeFilename]);
             end
           else
-            FLua.PrintLn('Failed to save bytecode to "%s."', [LExeFilename]);
+            FCallisto.PrintLn('Failed to save bytecode to "%s."', [LExeFilename]);
         end
       else
-        FLua.PrintLn('Failed to create "%s".', [LExeFilename]);
+        FCallisto.PrintLn('Failed to create "%s".', [LExeFilename]);
 
 
     finally
