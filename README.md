@@ -30,7 +30,7 @@ This library is designed to make integrating Lua into Delphi applications as sea
 - **Minimal Setup** 🛠️: Requires only a few lines of code to get started.
 - **Script Importing and Bundling** 📦: Use a custom `import` command to combine scripts, compile them into a single file, and optionally store them as an EXE resource for a fully self-contained application.
 - **No External Dependencies** 🚫📦: All dependencies are compiled directly into the EXE, so there are no external DLLs to maintain.
-- FFI Support 🔗: In addition to the custom routine registration provided by the TCallisto class, you can leverage LuaJIT's powerful Foreign Function Interface (FFI). This allows scripts to call exported routines directly from the current EXE or any loaded DLL, enabling seamless integration with existing Delphi libraries and external modules.
+- **FFI Support** 🔗: In addition to the custom routine registration provided by the TCallisto class, you can leverage LuaJIT's powerful Foreign Function Interface (FFI). This allows scripts to call exported routines directly from the current EXE or any loaded DLL, enabling seamless integration with existing Delphi libraries and external modules.
 
 ## Potential Uses
 - **Add Modding Support** 🛠️: Enhance your applications by allowing users to create mods.
