@@ -1236,9 +1236,16 @@ type
     FOnAfterReset: TCallback<TCallistoResetCallback>;
 
     /// <summary>
-    /// Opens and initializes the Lua state.
+    /// Opens and initializes the Lua state, preparing it for script execution and interaction.
+    /// This involves setting up the Lua environment, loading standard libraries, and preparing for script loading.
     /// </summary>
-    procedure Open();
+    /// <returns>True if the Lua state was successfully opened; otherwise, False.</returns>
+    /// <exception cref="EjetLuaException">Thrown if the Lua state cannot be initialized due to memory allocation failures or other critical errors.</exception>
+    /// <remarks>
+    /// Opening the Lua state is a critical step in enabling Lua script execution within the Delphi application.
+    /// Successful initialization ensures that scripts can be loaded, executed, and interacted with seamlessly.
+    /// </remarks>
+    function Open(): Boolean;
 
     /// <summary>
     /// Closes and destroys the Lua state.
@@ -3820,9 +3827,11 @@ end;
 
 
 { TLua }
-procedure TCallisto.Open();
+function TCallisto.Open(): Boolean;
 begin
+  Result := False;
   if FState <> nil then Exit;
+
   FState := luaL_newstate;
   SetGCStepSize(200);
   luaL_openlibs(FState);
@@ -3836,6 +3845,11 @@ begin
 
   // Set the panic handler
   lua_atpanic(FState, @LuaPanic);
+
+  // Create the 'arg' table
+  lua_updateargs(FState, 0);
+
+  Result := True;
 end;
 
 procedure TCallisto.Close();
