@@ -87,7 +87,7 @@ begin
   LCallisto := Callisto.Create();
   LCallisto.RegisterRoutine('DelphiRoutine', TMyClass.MyDelphiRoutine);
   LCallisto.LoadString('DelphiRoutine()');
-    LCallisto.Free();
+  LCallisto.Free();
 end;
 ```
 
@@ -95,12 +95,12 @@ end;
 ```pascal
 var
   LCallisto: TCallisto;
-  Result: TCallistoValue;
+  LResult: TCallistoValue;
 begin
   LCallisto := TCallisto.Create();
   LCallisto.LoadString('function greet() return "Hello from Lua!" end');
-  Result := LCallisto.Call('greet', []);
-  ShowMessage(Result.AsString);  
+  LResult := LCallisto.Call('greet', []);
+  ShowMessage(LResult.AsString);  
   LCallisto.Free();
 end;
 ```
