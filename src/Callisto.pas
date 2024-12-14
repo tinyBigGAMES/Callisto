@@ -5605,7 +5605,7 @@ begin
   except
     on E: Exception do
     begin
-      MessageBox(0, PChar(E.Message), 'Critical Initialization Error', MB_ICONERROR);
+      MessageBox(0, PChar(E.Message), 'Critical Shutdown Error', MB_ICONERROR);
     end;
   end;
 end;
